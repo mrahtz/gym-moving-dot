@@ -7,7 +7,6 @@ import numpy as np
 
 import gym
 from gym import spaces
-from gym.envs.classic_control import rendering
 from gym.utils import seeding
 
 
@@ -105,6 +104,8 @@ class MovingDotEnv(gym.Env):
 
     # Based on gym's atari_env.py
     def _render(self, mode='human', close=False):
+        # We only import this here in case we're running on a headless server
+        from gym.envs.classic_control import rendering
         assert mode == 'human', "MovingDot only supports human render mode"
         if close:
             if self.viewer is not None:
