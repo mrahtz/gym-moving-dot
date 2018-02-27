@@ -1,9 +1,10 @@
-# `gym-moving-dot`
+# gym-moving-dot
 
 A simple environment for OpenAI gym consisting of a white dot moving around in
-a black square.
+a black square, designed as a simple test environment for reinforcement
+learning experiments.
 
-![](screenshot.png)
+![](screenshot.gif)
 
 Observations are given as 210 x 160 pixel image with 3 channels for red, green
 and blue; the same size as Atari environments. The white dot has pixel values
