@@ -32,6 +32,8 @@ class MovingDotEnv(gym.Env):
         self.action_space = spaces.Discrete(5)
         self.viewer = None
 
+        self._seed()
+
         # Needed by atari_wrappers in OpenAI baselines
         self.ale = ALE()
         seed = None
@@ -41,14 +43,22 @@ class MovingDotEnv(gym.Env):
 
     def _reset(self):
         if self.random_start:
-            x = np.random.randint(low=0, high=160)
-            y = np.random.randint(low=0, high=210)
+            x = self.np_random.randint(low=0, high=160)
+            y = self.np_random.randint(low=0, high=210)
             self.pos = [x, y]
         else:
             self.pos = [0, 0]
         self.steps = 0
         ob = self._get_ob()
         return ob
+
+    # This is important because for e.g. A3C each worker should be exploring
+    # the environment differently, therefore seeds the random number generator
+    # of each environment differently. (This influences the random start
+    # location.)
+    def _seed(self, seed=None):
+        self.np_random, seed = seeding.np_random(seed)
+        return [seed]
 
     def _get_ob(self):
         ob = np.zeros((210, 160, 3), dtype=np.uint8)
