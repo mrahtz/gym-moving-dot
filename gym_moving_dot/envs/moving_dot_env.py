@@ -114,14 +114,15 @@ class MovingDotEnv(gym.Env):
 
     # Based on gym's atari_env.py
     def _render(self, mode='human', close=False):
-        # We only import this here in case we're running on a headless server
-        from gym.envs.classic_control import rendering
-        assert mode == 'human', "MovingDot only supports human render mode"
         if close:
             if self.viewer is not None:
                 self.viewer.close()
                 self.viewer = None
             return
+
+        # We only import this here in case we're running on a headless server
+        from gym.envs.classic_control import rendering
+        assert mode == 'human', "MovingDot only supports human render mode"
         img = self._get_ob()
         if self.viewer is None:
             self.viewer = rendering.SimpleImageViewer()
