@@ -34,7 +34,7 @@ about five minutes.  Expect your graphs to look something like:
 
 ## Installation
 
-`pip install --user .`
+`pip install --user git+https://github.com/mrahtz/gym-moving-dot`
 
 ## Usage
 
