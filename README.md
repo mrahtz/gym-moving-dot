@@ -28,7 +28,8 @@ starts in a different position at the start of each episode. Otherwise, the dot
 starts at the top left corner.
 
 Training with actor-critic (A2C from OpenAI's baselines with one worker) takes
-about five minutes.  Expect your graphs to look something like:
+about five minutes to achieve good reward. After about 20 minutes of training,
+expect your graphs to look something like:
 
 ![](training.png)
 
