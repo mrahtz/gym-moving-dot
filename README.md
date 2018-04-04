@@ -27,6 +27,11 @@ default 1,000). If `env.random_start` is set to True (the default), the dot
 starts in a different position at the start of each episode. Otherwise, the dot
 starts at the top left corner.
 
+Training with actor-critic (A2C from OpenAI's baselines with one worker) takes
+about five minutes.  Expect your graphs to look something like:
+
+![](training.png)
+
 ## Installation
 
 `pip install --user .`
