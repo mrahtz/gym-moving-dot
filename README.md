@@ -53,7 +53,7 @@ expect your graphs to look something like:
 
 ## Usage
 
-```
+```python
 import gym
 import gym_moving_dot
 
@@ -78,5 +78,5 @@ for env_name in ENVS:
 
 ## Update
 - 1/11/2019:
-    - update to be compatible with `gym==0.14.0`
+    - update to be compatible with the latest gym package
     - add the continuous `action_space` version
