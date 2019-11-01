@@ -1,1 +1,1 @@
-from gym_moving_dot.envs.moving_dot_env import MovingDotEnv
+from gym_moving_dot.envs.moving_dot_env import MovingDotEnv, MovingDotContinuousEnv

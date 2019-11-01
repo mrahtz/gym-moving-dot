@@ -11,11 +11,21 @@ and blue; the same size as Atari environments. The white dot has pixel values
 (255, 255, 255), while the black square has pixel values (0, 0, 0).
 
 Possible actions are:
-* 0: do nothing
-* 1: move down
-* 2: move right
-* 3: move up
-* 4: move left
+- Discrete `action_space`
+    * 0: do nothing
+    * 1: move down
+    * 2: move right
+    * 3: move up
+    * 4: move left
+- Continuous `action_space`
+    * Action: 1 x 2 vector for [move_on_x, move_on_y]
+    * Range: -1 <= move_on_x <= 1, -1 <= move_on_y <= 1
+    * Rules
+        ```shell
+        # Rules on executing an action
+        new_x = original_x_pos + 1 if move_on_x >= threshold else original_x_pos - 1
+        new_y = original_y_pos + 1 if move_on_y >= threshold else original_y_pos - 1
+        ```
 
 Rewards are given based on how far the dot is from the centre.
 * If the dot moves closer to the centre, it receives reward +1.
@@ -37,18 +47,36 @@ expect your graphs to look something like:
 
 `pip install --user git+https://github.com/mrahtz/gym-moving-dot`
 
+## Dependencies
+
+`pip install -r requirements.txt`
+
 ## Usage
 
 ```
+import gym
 import gym_moving_dot
 
-env = gym.make("MovingDot-v0")
-# A synonym if you need to use with a wrapper that checks for NoFrameskip
-# (e.g. wrap_deepmind)
-env = gym.make("MovingDotNoFrameskip-v0")
+ENVS = ["MovingDot-v0", "MovingDotNoFrameskip-v0", "MovingDotContinuous-v0", "MovingDotContinuousNoFrameskip-v0"]
 
-# Adjust number of steps before termination
-env.max_steps = 2000
-# Adjust random start
-env.random_start = False
+for env_name in ENVS:
+    print("=== Sample: {} ===".format(env_name))
+
+    env = gym.make(env_name)
+    env.random_start = False  # flag to choose if you want the dot to start on the top-left corner
+
+    env.reset()
+
+    for i in range(30):
+        a = env.action_space.sample()
+        o, r, d, info = env.step(a)
+        print("Obs shape: {}, Action: {}, Reward: {}, Done flag: {}, Info: {}".format(o.shape, a, r, d, info))
+
+    env.close()
+    del env
 ```
+
+## Update
+- 1/11/2019:
+    - update to be compatible with `gym==0.14.0`
+    - add the continuous `action_space` version
