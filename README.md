@@ -57,17 +57,20 @@ expect your graphs to look something like:
 import gym
 import gym_moving_dot
 
-ENVS = ["MovingDot-v0", "MovingDotNoFrameskip-v0", "MovingDotContinuous-v0", "MovingDotContinuousNoFrameskip-v0"]
+ENVS = ["MovingDotDiscrete-v0",
+        "MovingDotDiscreteNoFrameskip-v0",
+        "MovingDotContinuous-v0",
+        "MovingDotContinuousNoFrameskip-v0"]
 
 for env_name in ENVS:
-    print("=== Sample: {} ===".format(env_name))
+    print("=== Test: {} ===".format(env_name))
 
     env = gym.make(env_name)
-    env.random_start = False  # flag to choose if you want the dot to start on the top-left corner
+    env.random_start = False
 
     env.reset()
 
-    for i in range(30):
+    for i in range(3):
         a = env.action_space.sample()
         o, r, d, info = env.step(a)
         print("Obs shape: {}, Action: {}, Reward: {}, Done flag: {}, Info: {}".format(o.shape, a, r, d, info))
@@ -80,3 +83,5 @@ for env_name in ENVS:
 - 1/11/2019:
     - update to be compatible with the latest gym package
     - add the continuous `action_space` version
+- 16/12/2019:
+    - separate the existing classes into the parent and subclasses
